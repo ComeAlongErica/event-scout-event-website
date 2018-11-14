@@ -19,12 +19,12 @@
         </form>
         <h2>I'm feeling...</h2>
         <div class="suggest-container">
-            <a class="suggest">Live Music</a>
-            <a class="suggest">Sports</a>
-            <a class="suggest">Festivals</a>
-            <a class="suggest">Community Events</a>
-            <a class="suggest">Food</a>
-            <a class="suggest">Family Friendly</a>
+            <a ng-click="$ctrl.passDefined({searchKeyword: 'Music', postalCode: '48201'});" class="suggest">Live Music</a>
+            <a ng-click="$ctrl.passDefined({searchKeyword: 'Sports', postalCode: '48201'});" class="suggest">Sports</a>
+            <a ng-click="$ctrl.passDefined({searchKeyword: 'Festival', postalCode: '48201'});" class="suggest">Festivals</a>
+            <a ng-click="$ctrl.passDefined({searchKeyword: 'City', postalCode: '48201'});" class="suggest">Community Events</a>
+            <a ng-click="$ctrl.passDefined({searchKeyword: 'Arts', postalCode: '48201'});" class="suggest">Community Art</a>
+            <a ng-click="$ctrl.passDefined({searchKeyword: 'Country', postalCode: '48201'});" class="suggest">Country Music</a>
         </div>
     </section>
     </section>

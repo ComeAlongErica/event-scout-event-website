@@ -2,40 +2,73 @@
 
 function EventService($location, $http) {
     const self = this;
-    let jsonPayload = null;
-    let searchResults;
+    // self.jsonPayload = [];
+    self.bucketList = [];
 
+
+    // recieves data from search and sends to API
     self.submitData = (search) => {
-        searchResults = search;
-        self.searchTicketMaster(search);
-        $location.path("/search");
-        // console.log(searchResults);
+        return self.searchTicketMaster(search);
     };
-    self.returnData = () => {
-        return jsonPayload;
-    }
-    self.searchTicketMaster = (data) => {
-        let day = data.localDate.getDate();
-        let month = `${data.localDate.getMonth() + 1}`;
-        let year = data.localDate.getFullYear();
-        
-        // console.log(month, day, year);
 
-        // console.log("You're in api")
-        // console.log(data.searchKeyword);
-        // console.log(data.postalCode);
-        // console.log(data.localDate);
+    // recieves defined data from search and sends to defined API
+    self.submitDataDefined = (search) => {
+        return self.searchTicketMasterDefined(search);
+    };
+
+    //returns data for event search page
+    self.returnData = () => {
+        return self.jsonPayload;
+    }
+
+    //returns data for event search page
+    self.returnBucketList = () => {
+        return self.bucketList;
+    }
+
+    // navigates home when logo is clicked
+    self.routeHome = () => {
+        $location.path("/home");
+    };
+
+    //saves event to bucket list
+    self.saveBucketList = (saveEvent) => {
+        self.bucketList.push(saveEvent);
+    };
+
+    //removes event from bucket list
+    self.removeBucket = (removeEvent) => {
+        let index = self.bucketList.indexOf(removeEvent);
+        self.bucketList.splice(index, 1);
+    };
+
+    //API Request
+    self.searchTicketMaster = (search) => {
+        let day = search.localDate.getDate();
+        let month = `${search.localDate.getMonth() + 1}`;
+        let year = search.localDate.getFullYear();
 
         return $http({
             method: "GET", // Defines the method
-
-            url: `http://app.ticketmaster.com/discovery/v2/events.json?keyword=${data.searchKeyword}&postalCode=${data.postalCode}&localDate=${year}-${month}-${day}&apikey=ibBJCTVGbVNR0NGGSUX7I2MLXS17aVQH` // Defines the URL
+            url: `http://app.ticketmaster.com/discovery/v2/events.json?keyword=${search.searchKeyword}&postalCode=${search.postalCode}&localDate=${year}-${month}-${day}&apikey=ibBJCTVGbVNR0NGGSUX7I2MLXS17aVQH` // Defines the URL
         }).then((data) => {
             // This method is what is used to get data from the promise once it has been resolved
-             jsonPayload = data.data._embedded.events;
-            console.log(jsonPayload)
-            // Returns the jsonPayload variable
-            // return jsonPayload;
+            self.jsonPayload = data.data._embedded.events;
+            $location.path("/event-list");
+        });
+    }
+
+    //Pres Defined API Request
+    //API Request
+    self.searchTicketMasterDefined = (search) => {
+        return $http({
+            method: "GET", // Defines the method
+            url: `http://app.ticketmaster.com/discovery/v2/events.json?keyword=${search.searchKeyword}&postalCode=${search.postalCode}&apikey=ibBJCTVGbVNR0NGGSUX7I2MLXS17aVQH` // Defines the URL
+        }).then((data) => {
+            // This method is what is used to get data from the promise once it has been resolved
+            // console.log(data.data._embedded.events);
+            self.jsonPayload = data.data._embedded.events;
+            $location.path("/event-list");
         });
     }
 
@@ -43,11 +76,3 @@ function EventService($location, $http) {
 angular
     .module("App")
     .service("EventService", EventService);
-
-
-
-    //https://app.ticketmaster.com/discovery/v2/events.json?keyword=${searchKeyword}&postalCode=${postalCode}&startDateTime=${startDateTime}&apikey=ibBJCTVGbVNR0NGGSUX7I2MLXS17aVQH//
-
-    //http://app.ticketmaster.com/discovery/v1/events.json?keyword=Madonna&apikey=4dsfsf94tyghf85jdhshwge334&callback=myFunction
-
-    //http://app.ticketmaster.com/discovery/v2/events.json?keyword=${data.searchKeyword}&postalCode=${data.postalCode}&localDate=${year}-${month}-${day}&apikey=ibBJCTVGbVNR0NGGSUX7I2MLXS17aVQH

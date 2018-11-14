@@ -1,24 +1,24 @@
 <section class="search-img">
-        <section class="search-overlay"></section>
+    <section class="search-overlay"></section>
 </section>
 <section class="search-container">
     <header>
-        <p class="logo"><span>Event</span>Scout</p>
+        <p ng-click="$ctrl.navHome();" class="logo"><span>Event</span>Scout</p>
     </header>
     <section class="search-body-container">
-    <section>
-        <h1 class="search-header">
-            Explore,
-            Find,
-            Connect.
-        </h1>
-        <form ng-submit="$ctrl.passSearch(search);" class="search-form">
-            <input ng-model="search.searchKeyword" class="search-input" type="text" placeholder="Search event...">
-            <input ng-model="search.postalCode" class="search-input" type="text" placeholder="ZIP code">
-            <input ng-model="search.localDate" class="search-input" type="date">
-            <button class="search-button">Submit</button>
-        </form>
-        <event-list></event-list>
+        <section>
+            <h1 class="search-header">
+                Explore,
+                Find,
+                Connect.
+            </h1>
+            <form ng-submit="$ctrl.passSearch(search);" class="search-form">
+                <input ng-model="search.searchKeyword" class="search-input" type="text" placeholder="Search event...">
+                <input ng-model="search.postalCode" class="search-input" type="text" placeholder="ZIP code">
+                <input ng-model="search.localDate" class="search-input" type="date">
+                <button class="search-button">Submit</button>
+            </form>
+        </section>
     </section>
-    </section>
+    <event-list></event-list>
 </section>

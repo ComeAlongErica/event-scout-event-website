@@ -7,9 +7,6 @@ angular
         .when("/home", {
             template: "<home></home>"
         })
-        .when("/search", {
-            template: "<search></search>"
-        })
         .when("/bucket-list", {
             template: "<bucket-list></bucket-list>"
         })

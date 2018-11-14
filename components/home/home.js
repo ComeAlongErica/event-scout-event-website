@@ -10,6 +10,10 @@ const home = {
         vm.passSearch = (search) => {
             EventService.submitData(search);
         };
+        //sends defined data
+        vm.passDefined = (search) => {
+            EventService.submitDataDefined(search);
+        };
     }]
     
 };

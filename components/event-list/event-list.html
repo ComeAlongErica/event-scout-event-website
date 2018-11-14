@@ -1,14 +1,46 @@
+<section class="search-img">
+    <section class="search-overlay"></section>
+</section>
+<section class="search-container">
+    <header>
+        <p ng-click="$ctrl.navHome();" class="logo"><span>Event</span>Scout</p>
+    </header>
+    <section class="search-body-container">
+        <section>
+            <h1 class="search-header">
+                Explore,
+                Find,
+                Connect.
+            </h1>
+            <form ng-submit="$ctrl.passSearch(search);" class="search-form">
+                <input ng-model="search.searchKeyword" class="search-input" type="text" placeholder="Search event...">
+                <input ng-model="search.postalCode" class="search-input" type="text" placeholder="ZIP code">
+                <input ng-model="search.localDate" class="search-input" type="date">
+                <button class="search-button">Submit</button>
+            </form>
+        </section>
+    </section>
+</section>
 <section class="section-container">
     <section class="toggle-container">
+        <p class="displaying">Displaying {{ $ctrl.receivedData.length }} results...</p>
         <a class="toggle-events" href="#!/bucket-list">Bucket List</a>
     </section>
-    <section class="card" ng-repeat="event in receivedData track by $index">
-        <section class="date">
-            <p class="month-date">Dec 6</p>
-            <p class="day-time">7:00pm</p>
+    <section class="card" ng-repeat="event in $ctrl.receivedData track by $index">
+        <section expand-on-click class="flex-event">
+            <section class="date">
+                <p class="month-date">{{ event.dates.start.localDate }}</p>
+            </section>
+            <p class="location">{{ event._embedded.venues["0"].name }}</p>
+            <p class="event">{{ event.name }}</p>
+            <button ng-click="$ctrl.saveEvent(event);" class="favorite">Save Event</button>
         </section>
-        <p class="location">Chicago, IL - Location</p>
-        <p class="event">{{ event.name}}}</p>
-        <button class="favorite">Save Event</button>
+        <section class="extended-info hidden">
+            <!-- <p>{{ $index.event.name }}</p> -->
+            <p>{{ $index }}</p>
+            <p>{{ event.accessibility.info}}</p>
+            console.log("tdst");
+            <a class="event" ng-href={{event.url}}>Link to Ticketmaster</a>
+        </section>
     </section>
 </section>

@@ -7,6 +7,10 @@ const search = {
         vm.passSearch = (search) => {
             EventService.submitData(search);
         };
+
+        vm.navHome = () => {
+            EventService.routeHome();
+        };
     
     }]
     
